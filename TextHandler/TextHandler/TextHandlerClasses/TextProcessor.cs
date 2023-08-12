@@ -27,41 +27,24 @@ namespace TextHandler.TextHandlerClasses
             PunctuationMarks = punctuationMarks;
         }
 
-        public string CreateNewStringWithSetParams(List<string> words, int minWordLength)
+        private IEnumerable<string> SplitTextIntoWordsAndPunctuation(string text)
         {
-            var filteredWords = words
-                .Select(word => word.Trim())
-                .Where(word => (PunctuationMarks.ContainsKey(word) 
-                    && !PunctuationMarks[word])
-                    || word.Length >= minWordLength)
-                .ToList();
-
-            return string.Join(" ", filteredWords);
+            return Regex.Split(text, @"\b\w+\b|\W");
         }
 
-        public async Task Handle()
+        private bool IsWordValid(string word)
         {
-            List<string> wordsAndPunctuation;
-            string tempLine;
+            return (!PunctuationMarks.ContainsKey(word) || !PunctuationMarks[word])
+                && word.Length >= MinWordLength;
+        }
 
-            using (StreamReader reader = new StreamReader(InputFilePath))
-            using (StreamWriter writer = new StreamWriter(OutputFilePath))
-            {
-                while ((tempLine = await reader.ReadLineAsync()) != null)
-                {
-                    if (!string.IsNullOrWhiteSpace(tempLine))
-                    {
-                        var matches = Regex.Matches(tempLine, @"\b\w+\b|\W");
-                        wordsAndPunctuation = matches.Cast<Match>().Select(match => match.Value).ToList();
-                        var newString = CreateNewStringWithSetParams(wordsAndPunctuation, MinWordLength);
+        public string ProcessText(string input)
+        {
+            var wordsAndPunctuation = SplitTextIntoWordsAndPunctuation(input)
+                .Select(word => word.Trim())
+                .Where(word => IsWordValid(word));
 
-                        if (newString != "")
-                        {
-                            await writer.WriteLineAsync(newString);
-                        }
-                    }
-                }
-            }
+            return string.Join("", wordsAndPunctuation);
         }
     }
 }

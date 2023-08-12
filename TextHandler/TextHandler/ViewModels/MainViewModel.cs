@@ -164,7 +164,7 @@ namespace TextHandler.ViewModels
 
         private async void executeProcessFileCommand()
         {
-            var logger = _model.GetLogger(InputFilePath, OutputFilePath);
+            var logger = _model.GetStatusManager(InputFilePath, OutputFilePath);
 
             if(InputFilePath == null|| OutputFilePath == null) 
             {

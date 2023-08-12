@@ -20,7 +20,7 @@ namespace TextHandler.Models
             await textProcessor.Handle();
         }
 
-        public TextProcessingStatusManager GetLogger(
+        public TextProcessingStatusManager GetStatusManager(
             string inputFilePath,
             string outputFilePath)
         {
