@@ -14,12 +14,12 @@ namespace TextHandler.ViewModels
     internal class MainViewModel : INotifyPropertyChanged
     {
         private MainModel _model;
-        private Dictionary<string, bool> _punctuationMarks = new Dictionary<string, bool>()
+        private Dictionary<char, bool> _punctuationMarks = new Dictionary<char, bool>()
         {
-            {".", false}, { ",", false }, { "!", false }, { "?", false },
-            {":", false}, { ";", false }, { "\"", false }, { "\'", false },
+            {'.', false}, { ',', false }, { '!', false }, { '?', false },
+            {':', false}, { ';', false }, { '\"', false }, { '\'', false },
         };
-        private string _logText;
+        private string _statusText;
         private ushort _maxAmountOfFiles = 10;
         private ushort _fileCounter = 0;
         private ushort _minWordLength = 1;
@@ -46,13 +46,13 @@ namespace TextHandler.ViewModels
             }
         }
 
-        public string LogText 
+        public string StatusText 
         { 
-            get { return _logText; } 
+            get { return _statusText; } 
             private set
             {
-                _logText = value;
-                OnPropertyChanged(nameof(LogText));
+                _statusText = value;
+                OnPropertyChanged(nameof(StatusText));
             }
         }
 
@@ -78,71 +78,71 @@ namespace TextHandler.ViewModels
 
         public bool DotCheckBox 
         { 
-            get { return _punctuationMarks["."]; }
-            set { _punctuationMarks["."] = value;
+            get { return _punctuationMarks['.']; }
+            set { _punctuationMarks['.'] = value;
                 OnPropertyChanged(nameof(DotCheckBox));
             } 
         }
         public bool CommaCheckBox
         {
-            get { return _punctuationMarks[","]; }
+            get { return _punctuationMarks[',']; }
             set
             {
-                _punctuationMarks[","] = value;
+                _punctuationMarks[','] = value;
                 OnPropertyChanged(nameof(CommaCheckBox));
             }
         }
         public bool ExclamationCheckBox
         {
-            get { return _punctuationMarks["!"]; }
+            get { return _punctuationMarks['!']; }
             set
             {
-                _punctuationMarks["!"] = value;
+                _punctuationMarks['!'] = value;
                 OnPropertyChanged(nameof(ExclamationCheckBox));
             }
         }
         public bool QuestionCheckBox
         {
-            get { return _punctuationMarks["?"]; }
+            get { return _punctuationMarks['?']; }
             set
             {
-                _punctuationMarks["?"] = value;
+                _punctuationMarks['?'] = value;
                 OnPropertyChanged(nameof(QuestionCheckBox));
             }
         }
         public bool ColonCheckBox
         {
-            get { return _punctuationMarks[":"]; }
+            get { return _punctuationMarks[':']; }
             set
             {
-                _punctuationMarks[":"] = value;
+                _punctuationMarks[':'] = value;
                 OnPropertyChanged(nameof(ColonCheckBox));
             }
         }
         public bool SemicolonCheckBox
         {
-            get { return _punctuationMarks[";"]; }
+            get { return _punctuationMarks[';']; }
             set
             {
-                _punctuationMarks[";"] = value;
+                _punctuationMarks[';'] = value;
                 OnPropertyChanged(nameof(SemicolonCheckBox));
             }
         }
         public bool QuoteCheckBox
         {
-            get { return _punctuationMarks["\""]; }
+            get { return _punctuationMarks['\"']; }
             set
             {
-                _punctuationMarks["\""] = value;
+                _punctuationMarks['\"'] = value;
                 OnPropertyChanged(nameof(QuoteCheckBox));
             }
         }
         public bool SingleQuoteCheckBox
         {
-            get { return _punctuationMarks["\'"]; }
+            get { return _punctuationMarks['\'']; }
             set
             {
-                _punctuationMarks["\'"] = value;
+                _punctuationMarks['\''] = value;
                 OnPropertyChanged(nameof(SingleQuoteCheckBox));
             }
         }
@@ -164,12 +164,12 @@ namespace TextHandler.ViewModels
 
         private async void executeProcessFileCommand()
         {
-            var logger = _model.GetStatusManager(InputFilePath, OutputFilePath);
+            var statusManager = _model.GetStatusManager(InputFilePath, OutputFilePath);
 
             if(InputFilePath == null|| OutputFilePath == null) 
             {
                 PopupManager.ShowWarning("The path to the input or output file is missing");
-                LogText += logger.GetStatusText(false);
+                StatusText += statusManager.GetStatusText(false);
                 return;
             }
             try
@@ -185,7 +185,7 @@ namespace TextHandler.ViewModels
                         MinWordLength,
                         _punctuationMarks);
 
-                    LogText += logger.GetStatusText(true);
+                    StatusText += statusManager.GetStatusText(true);
 
                     _fileCounter--;
                     ProcessingLabel = _fileCounter.ToString();
@@ -193,13 +193,13 @@ namespace TextHandler.ViewModels
                 else
                 {
                     PopupManager.ShowWarning("All processing slots are occupied");
-                    LogText += logger.GetStatusText(false);
+                    StatusText += statusManager.GetStatusText(false);
                 }
             }
             catch (Exception ex) 
             {
                 PopupManager.ShowWarning("Something went wrong. Exception: " + ex.Message);
-                LogText += logger.GetStatusText(false);
+                StatusText += statusManager.GetStatusText(false);
             }
         }
 

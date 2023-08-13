@@ -32,7 +32,7 @@
         </Grid>
         <Grid HorizontalAlignment="Left" Height="299" VerticalAlignment="Top" Width="284" Margin="199,112,0,0">
             <Label Content="{Binding ProcessingLabel }" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="20" FontWeight="SemiBold" Width="220" Margin="64,0,0,0"/>
-            <TextBox Text="{Binding LogText, Mode=OneWay}" IsReadOnly="True" HorizontalAlignment="Center" TextAlignment="Left" Margin="0,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Height="257"/>
+            <TextBox Text="{Binding StatusText, Mode=OneWay}" IsReadOnly="True" HorizontalAlignment="Center" TextAlignment="Left" Margin="0,42,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="284" Height="257"/>
 
         </Grid>
         <Button Content="Process the file" Command="{Binding ProcessFileCommand}" Style="{StaticResource ButtonStyle}" Margin="22,366,0,0" Height="30" VerticalAlignment="Top" HorizontalAlignment="Left" Width="130"/>

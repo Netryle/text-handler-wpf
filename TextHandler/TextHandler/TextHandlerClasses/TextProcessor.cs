@@ -10,41 +10,56 @@ namespace TextHandler.TextHandlerClasses
 {
     public class TextProcessor
     {
-        public string InputFilePath { get; private set; }
-        public string OutputFilePath { get; private set; }
         public int MinWordLength { get; private set; }
-        public Dictionary<string, bool> PunctuationMarks { get; private set; }
+        public Dictionary<char, bool> PunctuationMarks { get; private set; }
 
-        public TextProcessor(
-            string inputFilePath, 
-            string outputFilePath, 
-            int minWordLength, 
-            Dictionary<string, bool> punctuationMarks)
+        public TextProcessor(int minWordLength, Dictionary<char, bool> punctuationMarks)
         {
-            InputFilePath = inputFilePath;
-            OutputFilePath = outputFilePath;
             MinWordLength = minWordLength;
             PunctuationMarks = punctuationMarks;
         }
 
-        private IEnumerable<string> SplitTextIntoWordsAndPunctuation(string text)
+        public string ProcessText(char[] text)
         {
-            return Regex.Split(text, @"\b\w+\b|\W");
-        }
+            StringBuilder result = new StringBuilder();
+            StringBuilder currentWord = new StringBuilder();
 
-        private bool IsWordValid(string word)
-        {
-            return (!PunctuationMarks.ContainsKey(word) || !PunctuationMarks[word])
-                && word.Length >= MinWordLength;
-        }
+            foreach (var tempChar in text)
+            {
+                if (char.IsPunctuation(tempChar))
+                {
+                    if ((PunctuationMarks.TryGetValue(tempChar, out bool value)
+                        && !value)
+                        || !PunctuationMarks.ContainsKey(tempChar))
+                    {
+                        if (currentWord.Length >= MinWordLength)
+                        {
+                            result.Append(currentWord);
+                        }
+                        result.Append(tempChar);
 
-        public string ProcessText(string input)
-        {
-            var wordsAndPunctuation = SplitTextIntoWordsAndPunctuation(input)
-                .Select(word => word.Trim())
-                .Where(word => IsWordValid(word));
+                        currentWord.Clear();
+                    }
+                }
+                else if (char.IsLetter(tempChar))
+                {
+                    currentWord.Append(tempChar);
+                }
+                else if (char.IsWhiteSpace(tempChar) 
+                    || tempChar == '\n' 
+                    || tempChar == '\r')
+                {
+                    if(currentWord.Length >= MinWordLength) 
+                    {
+                        currentWord.Append(tempChar);
+                        result.Append(currentWord);
+                    }
 
-            return string.Join("", wordsAndPunctuation);
+                    currentWord.Clear();
+                }
+            }
+
+            return result.ToString();
         }
     }
 }

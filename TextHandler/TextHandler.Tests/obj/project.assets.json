@@ -3992,11 +3992,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\!Work\\text-handler-wpf\\TextHandler\\TextHandler.Tests\\TextHandler.Tests.csproj",
+      "projectUniqueName": "D:\\1Work\\TestTask\\text-handler-wpf\\TextHandler\\TextHandler.Tests\\TextHandler.Tests.csproj",
       "projectName": "TextHandler.Tests",
-      "projectPath": "C:\\!Work\\text-handler-wpf\\TextHandler\\TextHandler.Tests\\TextHandler.Tests.csproj",
+      "projectPath": "D:\\1Work\\TestTask\\text-handler-wpf\\TextHandler\\TextHandler.Tests\\TextHandler.Tests.csproj",
       "packagesPath": "C:\\Users\\netry\\.nuget\\packages\\",
-      "outputPath": "C:\\!Work\\text-handler-wpf\\TextHandler\\TextHandler.Tests\\obj\\",
+      "outputPath": "D:\\1Work\\TestTask\\text-handler-wpf\\TextHandler\\TextHandler.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\netry\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4013,8 +4013,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\!Work\\text-handler-wpf\\TextHandler\\TextHandler\\TextHandler.csproj": {
-              "projectPath": "C:\\!Work\\text-handler-wpf\\TextHandler\\TextHandler\\TextHandler.csproj"
+            "D:\\1Work\\TestTask\\text-handler-wpf\\TextHandler\\TextHandler\\TextHandler.csproj": {
+              "projectPath": "D:\\1Work\\TestTask\\text-handler-wpf\\TextHandler\\TextHandler\\TextHandler.csproj"
             }
           }
         }
@@ -4066,7 +4066,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.400\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

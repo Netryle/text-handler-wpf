@@ -10,20 +10,21 @@ namespace TextHandler.Utility
     internal class FileWriter
     {
         private string _outputFilePath;
+        private StreamWriter _writer;
         public FileWriter(string outputFilePath)
         {
             _outputFilePath = outputFilePath;
+            _writer = new StreamWriter(outputFilePath);
         }
 
-        private async Task WriteDataAsync(IEnumerable<string> processedDataLines)
+        public async Task WriteDataAsync(string processedDataLine)
         {
-            using (StreamWriter writer = new StreamWriter(_outputFilePath))
-            {
-                foreach (string line in processedDataLines)
-                {
-                    await writer.WriteLineAsync(line);
-                }
-            }
+            await _writer.WriteLineAsync(processedDataLine);
+        }
+
+        public void Close()
+        {
+            _writer.Close();
         }
 
     }

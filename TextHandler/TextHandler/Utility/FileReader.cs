@@ -14,7 +14,7 @@ namespace TextHandler.Utility
         {
             _inputFilePath = inputFilePath;
         }
-        public async IAsyncEnumerable<string> ReadDataAsync()
+        public async IAsyncEnumerable<char[]> ReadDataAsync()
         {
             int bufferSize = 1024 * 4;
             char[] buffer = new char[bufferSize];
@@ -24,7 +24,7 @@ namespace TextHandler.Utility
             {
                 while ((charsRead = await reader.ReadAsync(buffer, 0, buffer.Length)) > 0)
                 {
-                    yield return new string(buffer, 0, charsRead);
+                    yield return buffer;
                 }
             }
         }
