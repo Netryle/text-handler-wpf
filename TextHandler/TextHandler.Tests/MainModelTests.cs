@@ -45,7 +45,7 @@ namespace TextHandler.Tests
             ExecuteHandleTextFile();
 
             Assert.AreEqual(1, _fileReader.GetCallCount);
-            Assert.AreEqual(3, _fileWriter.GetCallCount);
+            Assert.AreEqual(4, _fileWriter.GetCallCount);
         }
     }
 }
