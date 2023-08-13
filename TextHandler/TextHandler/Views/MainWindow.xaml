@@ -45,6 +45,6 @@
             <TextBox HorizontalAlignment="Left" Margin="191,45,0,0" TextWrapping="Wrap" Text="{Binding OutputFilePath, Mode=OneWay}"  TextAlignment="Center" IsReadOnly="True" VerticalAlignment="Top" Width="275" Height="40"/>
 
         </Grid>
-
+ 
     </Grid>
 </Window>
