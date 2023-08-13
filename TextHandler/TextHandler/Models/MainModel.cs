@@ -1,31 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using TextHandler.Utility;
 using System.Threading.Tasks;
 using TextHandler.TextHandlerClasses;
+using TextHandler.Interfaces;
 
 namespace TextHandler.Models
 {
-    internal class MainModel
+    public class MainModel
     {
         public async Task HandleTextFile(
-            string inputFilePath, 
-            string outputFilePath, 
             int minWordLength, 
-            Dictionary<char, bool> punctuationMarks)
+            Dictionary<char, bool> punctuationMarks,
+            IReader _fileReader,
+            IWriter _fileWriter)
         {
             var textProcessor = new TextProcessor(minWordLength, punctuationMarks);
-            var fileReader = new FileReader(inputFilePath);
-            var fileWriter = new FileWriter(outputFilePath);
 
-            await foreach (var data in fileReader.ReadDataAsync())
+            await foreach (var data in _fileReader.ReadDataAsync())
             {
                 var newString = textProcessor.ProcessText(data);
-                await fileWriter.WriteDataAsync(newString);
+                await _fileWriter.WriteDataAsync(newString);
             }
-            fileWriter.Close();
+            _fileWriter.Close();
         }
 
         public TextProcessingStatusManager GetStatusManager(

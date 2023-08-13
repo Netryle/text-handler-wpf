@@ -2,9 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using TextHandler.Models;
 using TextHandler.Utility;
@@ -178,12 +175,14 @@ namespace TextHandler.ViewModels
                 {
                     _fileCounter++;
                     ProcessingLabel = _fileCounter.ToString();
+                    var fileReader = new FileReader(InputFilePath);
+                    var fileWriter = new FileWriter(OutputFilePath);
 
                     await _model.HandleTextFile(
-                        InputFilePath,
-                        OutputFilePath,
                         MinWordLength,
-                        _punctuationMarks);
+                        _punctuationMarks,
+                        fileReader,
+                        fileWriter);
 
                     StatusText += statusManager.GetStatusText(true);
 

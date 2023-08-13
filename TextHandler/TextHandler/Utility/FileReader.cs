@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using TextHandler.Interfaces;
 
 namespace TextHandler.Utility
 {
-    internal class FileReader
+    public class FileReader : IReader
     {
         private string _inputFilePath;
         public FileReader(string inputFilePath)

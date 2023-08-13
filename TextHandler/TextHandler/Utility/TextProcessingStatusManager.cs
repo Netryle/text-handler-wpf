@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextHandler.Utility
 {
-    class TextProcessingStatusManager
+    public class TextProcessingStatusManager
     {
         string _inputFilePath;
         string _outputFilePath;
