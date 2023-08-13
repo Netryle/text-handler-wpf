@@ -18,6 +18,8 @@ namespace TextHandler.TextHandlerClasses
         public string ProcessText(char[] text)
         {
             StringBuilder result = new StringBuilder();
+            char previousChar = '\0';
+
             foreach (var tempChar in text)
             {
                 if (char.IsPunctuation(tempChar))
@@ -57,7 +59,7 @@ namespace TextHandler.TextHandlerClasses
                         currentWord.Append(tempChar);
                         result.Append(currentWord);
                     }
-                    else
+                    else if(char.IsPunctuation(previousChar))
                     {
                         result.Append(tempChar);
                     }
@@ -72,6 +74,7 @@ namespace TextHandler.TextHandlerClasses
                         return result.ToString();
                     }
                 }
+                previousChar = tempChar;
             }
 
             return result.ToString();
