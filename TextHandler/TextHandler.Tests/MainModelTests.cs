@@ -1,5 +1,4 @@
-﻿using TextHandler.Interfaces;
-using TextHandler.Models;
+﻿using TextHandler.Models;
 using TextHandler.Tests.Mocks;
 
 namespace TextHandler.Tests

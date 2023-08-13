@@ -5,6 +5,7 @@ namespace TextHandler.TextHandlerClasses
 {
     public class TextProcessor
     {
+        private StringBuilder currentWord = new StringBuilder();
         public int MinWordLength { get; private set; }
         public Dictionary<char, bool> PunctuationMarks { get; private set; }
 
@@ -17,8 +18,6 @@ namespace TextHandler.TextHandlerClasses
         public string ProcessText(char[] text)
         {
             StringBuilder result = new StringBuilder();
-            StringBuilder currentWord = new StringBuilder();
-
             foreach (var tempChar in text)
             {
                 if (char.IsPunctuation(tempChar))
@@ -31,12 +30,21 @@ namespace TextHandler.TextHandlerClasses
                         {
                             result.Append(currentWord);
                         }
+                        
                         result.Append(tempChar);
-
                         currentWord.Clear();
                     }
+                    else if (!char.IsWhiteSpace(tempChar))
+                    {
+                        if (currentWord.Length >= MinWordLength)
+                        {
+                            result.Append(currentWord);
+                            currentWord.Clear();
+                        }
+                    }
                 }
-                else if (char.IsLetter(tempChar))
+                else if (char.IsLetter(tempChar) 
+                    || char.IsDigit(tempChar))
                 {
                     currentWord.Append(tempChar);
                 }
@@ -49,12 +57,34 @@ namespace TextHandler.TextHandlerClasses
                         currentWord.Append(tempChar);
                         result.Append(currentWord);
                     }
+                    else
+                    {
+                        result.Append(tempChar);
+                    }
 
                     currentWord.Clear();
+                }
+                else if (tempChar == '\0')
+                {
+                    if (currentWord.Length >= MinWordLength)
+                    {
+                        result.Append(currentWord);
+                        return result.ToString();
+                    }
                 }
             }
 
             return result.ToString();
+        }
+
+        public string Flush()
+        {
+            if (currentWord.Length >= MinWordLength)
+            {
+                return currentWord.ToString();
+            }
+
+            return "";
         }
     }
 }

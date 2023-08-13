@@ -21,6 +21,7 @@ namespace TextHandler.Models
                 var newString = textProcessor.ProcessText(data);
                 await _fileWriter.WriteDataAsync(newString);
             }
+            await _fileWriter.WriteDataAsync(textProcessor.Flush());
             _fileWriter.Close();
         }
 
